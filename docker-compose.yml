@@ -1,11 +1,10 @@
 services:
   influxdb3-core:
     container_name: influxdb3-core
-    image: influxdb:3-core
+    image: quay.io/influxdb/influxdb3-core:latest
     ports:
       - 8181:8181
     command:
-      - influxdb3
       - serve
       - --node-id=${INFLUXDB_NODE_ID}
       - --object-store=file
@@ -21,7 +20,7 @@ services:
 
   telegraf:
     container_name: telegraf
-    image: telegraf
+    image: docker.1ms.run/library/telegraf
     depends_on:
       influxdb3-core:
         condition: service_healthy
@@ -38,14 +37,17 @@ services:
     restart: unless-stopped
 
   grafana:
-    image: grafana/grafana
+    image: docker.1ms.run/grafana/grafana
     ports:
       - "${GRAFANA_PORT}:3000"
     volumes:
       - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
     environment:
       - GF_SECURITY_ADMIN_USER=${GRAFANA_ADMIN_USER}
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
+      - INFLUXDB_TOKEN=${INFLUXDB_TOKEN}
+      - INFLUXDB_BUCKET=${INFLUXDB_BUCKET}
     depends_on:
       - influxdb3-core
     # Or switch to influxdb3-enterprise as needed

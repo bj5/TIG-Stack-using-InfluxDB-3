@@ -6,7 +6,7 @@ TIG Stack is an arconym for the following three open source technologoies that s
 2. **I**nfluxDB 3 (Core or Enterprise version) as the timeseries database
 3. **G**rafana as the data visualization tool that frequently queries metrics from InfluxDB 3 tables.
 
-![TIG Stack](https://github.com/InfluxCommunity/TIG-Stack-using-InfluxDB-3-Core/blob/main/TIG.drawio-4.png)
+![TIG Stack](TIG.drawio-4.png)
 
 ## Pre-requisite:
 
@@ -18,7 +18,7 @@ TIG Stack is an arconym for the following three open source technologoies that s
 
 ## 1. Clone the repository
 ```sh
-git clone https://github.com/InfluxCommunity/TIG-Stack-using-InfluxDB-3.git
+git clone https://github.com/bj5/TIG-Stack-using-InfluxDB-3.git
 cd TIG-Stack-using-InfluxDB-3
 ```
 
@@ -74,7 +74,7 @@ docker-compose exec influxdb3-core influxdb3 query "SHOW TABLES" --database loca
 ```sql
 SELECT "cpu", "usage_user", "time" FROM "cpu" WHERE "time" >= $__timeFrom AND "time" <= $__timeTo AND "cpu" = 'cpu0'
 ```
-![TIG Stack](https://github.com/InfluxCommunity/TIG-Stack-using-InfluxDB-3-Core/blob/main/Grafana_screenshot.png)
+![TIG Stack](Grafana_screenshot.png)
 
 ## 7. Stopping the TIG Stack & Removing Data
 
