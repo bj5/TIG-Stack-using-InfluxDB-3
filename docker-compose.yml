@@ -21,6 +21,7 @@ services:
   telegraf:
     container_name: telegraf
     image: docker.1ms.run/library/telegraf
+    command: ["telegraf", "--non-strict-env-handling"]
     depends_on:
       influxdb3-core:
         condition: service_healthy
@@ -33,7 +34,7 @@ services:
       - TELEGRAF_COLLECTION_INTERVAL=${TELEGRAF_COLLECTION_INTERVAL}
       - HOSTNAME=telegraf
     volumes:
-      - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf
+      - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
     restart: unless-stopped
 
   grafana:
